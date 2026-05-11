@@ -1,5 +1,6 @@
 {
   "getwalletnfts": "Get Wallet NFTs (Non-EVM)",
+  "getwalletnftsmultichain": "Get Wallet NFTs (Multichain / EVM)",
   "getnftcollections": "Get NFT Collections",
   "getnftmetadatabyid": "Get NFT Metadata by ID",
   "refreshnftmetadata": "Refresh NFT Metadata"

@@ -10,6 +10,7 @@ export function WalletMethod_getevmportfolio() {
     <WalletMethod
       method="Get EVM Portfolio"
       cu={9185}
+      culambda={"only tokens filter - 3674 CU, only DeFi filter - 7348 CU"}
       description={"Returns comprehensive portfolio information for a wallet address, including native token balances, ERC-20 tokens, and DeFi positions across supported chains"}
       url={"GET https://lb.drpc.live/{chain}/{key}/lambda/v2/wallets/{address}/balances"}
       useCases={USE_CASES}

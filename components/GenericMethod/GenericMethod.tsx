@@ -23,6 +23,7 @@ export type GenericMethodProps = {
   method: string;
   network: string;
   cu: number;
+  culambda?: string;
   description: string;
   url?: string | string[];
   useCases: string[];
@@ -64,6 +65,7 @@ export default function GenericMethod({
   method,
   network,
   cu,
+  culambda,
   description,
   url,
   useCases,
@@ -133,6 +135,13 @@ export default function GenericMethod({
             <Text fontWeight="semibold" size={"lg"}>
               {method} - <Text capitalize>{network}</Text>{" "}
               <Text opacity={0.5}>[Value: {cu}CU]</Text>
+            </Text>
+          </Group>
+
+          <Group justify="start" mb={8}>
+            <Text fontWeight="semibold" size={"md"}>
+               <Text capitalize>{network}</Text>{" "}
+              <Text opacity={0.5}>[{culambda}]</Text>
             </Text>
           </Group>
 
