@@ -139,9 +139,11 @@ export default function GenericMethod({
           </Group>
 
           <Group justify="start" mb={8}>
-            <Text fontWeight="semibold" size={"md"}>
-               <Text capitalize>{network}</Text>{" "}
-              <Text opacity={0.5}>[{culambda}]</Text>
+            <Text fontWeight="semibold" size="md">
+              <Text capitalize>{network}</Text>{" "}
+                  {culambda && (
+                    <Text opacity={0.5}>[{culambda}]</Text>
+                  )}
             </Text>
           </Group>
 
