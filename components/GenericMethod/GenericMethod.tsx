@@ -136,16 +136,14 @@ export default function GenericMethod({
               {method} - <Text capitalize>{network}</Text>{" "}
               <Text opacity={0.5}>[Value: {cu}CU]</Text>
             </Text>
-          </Group>
 
-          <Group justify="start" mb={8}>
-            <Text fontWeight="semibold" size="md">
-              <Text capitalize>{network}</Text>{" "}
-                  {culambda && (
-                    <Text opacity={0.5}>[{culambda}]</Text>
-                  )}
-            </Text>
           </Group>
+            {culambda && <Group justify="start" mb={8}>
+              <Text fontWeight="semibold" size="md">
+                <Text capitalize>{network}</Text>{" "}
+                 <Text opacity={0.5}>[{culambda}]</Text>
+              </Text>
+          </Group>}
 
           <Group justify="start">
             <Text size="sm" color="gray">
