@@ -10,6 +10,7 @@ export function WalletMethod_getnonevmportfolio() {
     <WalletMethod
       method="Get Non-EVM Portfolio"
       cu={3340}
+      culambda={"only tokens filter - 2004 CU, only DeFi filter - 2672 CU"}
       description={"Returns information about all assets in a wallet. It includes: native balance, tokens, DeFi"}
       url={"GET https://lb.drpc.live/{chain}/{key}/lambda/v1/wallets/{address}/balances"}
       useCases={USE_CASES}

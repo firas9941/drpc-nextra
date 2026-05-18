@@ -1,0 +1,118 @@
+# Quickstart
+
+Get up and running with the Data & Wallet API in less than a minute. In this guide, we will fetch the complete token balances for a specific wallet address on Ethereum.
+
+### Step 1: Get Your API Endpoint
+
+The Data & Wallet API is enabled by default for all dRPC paid users. No extra activation is required.
+
+1. Log in to your [dRPC Dashboard](https://drpc.org/).
+2. Navigate to **API Keys** and select your active key (or create a new one).
+3. On the key's page, locate the **Data & Wallet API** card. Copy the base URL provided there.
+
+Your base URL will look like:
+
+```
+https://lb.drpc.live/lambda/<YOUR_API_TOKEN>
+```
+
+For per-chain requests, the base URL includes the network:
+
+```
+https://lb.drpc.live/<CHAIN>/<YOUR_API_TOKEN>/lambda
+```
+
+### Step 2: Make Your First Request
+
+Let's fetch token balances for vitalik.eth on Ethereum. We'll use the per-chain endpoint `GET /lambda/v1/wallets/{address}/balances`:
+
+**cURL:**
+
+```bash
+curl --request GET \
+     --url 'https://lb.drpc.live/ethereum/<YOUR_API_TOKEN>/lambda/v1/wallets/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/balances' \
+     --header 'Accept: application/json'
+```
+
+**JavaScript (Fetch):**
+
+```jsx
+const chain = 'ethereum';
+const apiToken = '<YOUR_API_TOKEN>';
+const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
+
+fetch(`https://lb.drpc.live/${chain}/${apiToken}/lambda/v1/wallets/${address}/balances`, {
+  method: 'GET',
+  headers: { 'Accept': 'application/json' }
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+```
+
+### Step 3: Understand the Response
+
+You will receive a structured JSON response containing the wallet's token holdings with current USD values, amounts, and contract metadata:
+
+```json
+{
+  "balances": [
+    {
+      "chain_id": 1,
+      "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "decimals": 18,
+      "amount": "4.502841",
+      "price_usd": 2295.40,
+      "value_usd": 10335.42,
+      "logo_url": "https://assets.coingecko.com/coins/images/279/small/ethereum.png"
+    },
+    {
+      "chain_id": 1,
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "symbol": "USDC",
+      "name": "USD Coin",
+      "decimals": 6,
+      "amount": "1930.504200",
+      "price_usd": 1.00,
+      "value_usd": 1930.50,
+      "logo_url": "https://assets.coingecko.com/coins/images/6319/small/usdc.png"
+    },
+    {
+      "chain_id": 1,
+      "address": "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9",
+      "symbol": "AAVE",
+      "name": "Aave",
+      "decimals": 18,
+      "amount": "52.180000",
+      "price_usd": 178.25,
+      "value_usd": 9300.09,
+      "logo_url": "https://assets.coingecko.com/coins/images/12645/small/aave.png"
+    }
+  ],
+  "total_value_usd": 21565.01
+}
+```
+
+### Step 3.5: Try the Global Endpoint
+
+The per-chain endpoint above returns balances for one network. To get **cross-chain balances in a single call**, use the global endpoint `GET /v2/wallets/{address}/balances`:
+
+```bash
+curl --request GET \
+     --url 'https://lb.drpc.live/lambda/<YOUR_API_TOKEN>/v2/wallets/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/balances' \
+     --header 'Accept: application/json'
+```
+
+This returns balances across all supported chains at once — no need to query each network separately.
+
+### Next Steps
+
+Now that you have successfully connected, explore other core endpoints to power your application's DeFi features:
+
+- [Get Portfolio](https://drpc.org/docs/wallet-api/wallet/getevmportfolio) — Full DeFi portfolio with positions across 8k+ protocols, including supply, borrow, LP, staking and rewards.
+- [Get Wallet PnL History](https://drpc.org/docs/wallet-api/wallet/getpnlhistory) — Historical profit and loss data per token and DeFi position.
+- [Get Transaction History](https://drpc.org/docs/wallet-api/wallet/gettransactionshistory) — Decoded, human-readable transfer and interaction logs.
+- [Get Tokens Net Worth](https://drpc.org/docs/wallet-api/wallet/getpnlformultiplewallets) — Total wallet value aggregated across all holdings.
+- [Get Recommendations](https://drpc.org/docs/wallet-api/wallet/getyieldrecommendations) — Missed Yield opportunities to power Earn product CTAs.
