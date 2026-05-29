@@ -1,3 +1,5 @@
 {
-  "getaprhistory": "Get APR History"
+  "getaprhistory": "Get APR History",
+  "getledgerstakes": "Get Ledger Stakes",
+  "getledgergrow": "Get APR Growth"
 }
