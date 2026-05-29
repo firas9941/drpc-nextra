@@ -18,7 +18,7 @@ export function WalletMethod_getaprhistory() {
       pathParams={PATH_PARAMS}
       queryParamsType="none"
       requestParams={REQUEST_PARAMS}
-      requestParamsType="array_of_objects"
+      requestParamsType="none"
       responseJSON={RESPONSE_JSON}
       responseParams={RESPONSE_PARAMS}
       responseParamsType="object"
@@ -152,46 +152,7 @@ const PATH_PARAMS: ReqResParam[] = [
   },
 ];
 
-const REQUEST_PARAMS: RequestParamProp = [
-  {
-  paramName: "requests",
-  type: "array_of_objects",
-  paramDescription: "[Required] List of APR history requests",
-  childrenParamsType: "object",
-  childrenParams: [
-    {
-      paramName: "chain",
-      type: "string",
-      paramDescription: "[Required] Chain name (e.g., ethereum)"
-    },
-    {
-      paramName: "protocol",
-      type: "string",
-      paramDescription: "Protocol identifier (enum, 39 available values)"
-    },
-    {
-      paramName: "pool_id",
-      type: "string",
-      paramDescription: "Pool identifier"
-    },
-    {
-      paramName: "asset",
-      type: "string",
-      paramDescription: "Asset address"
-    },
-    {
-      paramName: "start_date",
-      type: "integer",
-      paramDescription: "[≥ 0] Start timestamp in milliseconds"
-    },
-    {
-      paramName: "end_date",
-      type: "integer",
-      paramDescription: "[≥ 0] End timestamp in milliseconds"
-    }
-  ]
-}
-];
+const REQUEST_PARAMS: RequestParamProp = [];
 
 const RESPONSE_PARAMS: ReqResParam[] = [
   {
@@ -271,11 +232,10 @@ const RESPONSE_PARAMS: ReqResParam[] = [
 ];
 
 const USE_CASES = [
-  "Retrieve historical APR data for DeFi protocols",
-  "Analyze yield trends over time",
+  "display active staking positions, balances, validators, and rewards",
+  "Aggregate staking exposure across multiple addresses",
 ];
 
 const CONSTRAINTS = [
-  "Only supported protocols and assets are returned",
-  "Historical data may be limited for older timestamps",
+  "Returned data depends on supported chains",
 ];
