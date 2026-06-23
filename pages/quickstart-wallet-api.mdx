@@ -24,13 +24,14 @@ https://lb.drpc.live/<CHAIN>/<YOUR_API_TOKEN>/lambda
 
 ### Step 2: Make Your First Request
 
-Let's fetch token balances for vitalik.eth on Ethereum. We'll use the per-chain endpoint `GET /lambda/v1/wallets/{address}/balances`:
+Let's fetch token balances for vitalik.eth on Ethereum. We'll use the per-chain endpoint `GET /lambda/v2/wallets/{address}/balances`:
 
 **cURL:**
 
 ```bash
 curl --request GET \
-     --url 'https://lb.drpc.live/ethereum/<YOUR_API_TOKEN>/lambda/v1/wallets/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/balances' \
+     --url 'https://lb.drpc.live/ethereum/<YOUR_API_TOKEN>/lambda/v2
+/wallets/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/balances' \
      --header 'Accept: application/json'
 ```
 
@@ -41,7 +42,7 @@ const chain = 'ethereum';
 const apiToken = '<YOUR_API_TOKEN>';
 const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
 
-fetch(`https://lb.drpc.live/${chain}/${apiToken}/lambda/v1/wallets/${address}/balances`, {
+fetch(`https://lb.drpc.live/${chain}/${apiToken}/lambda/v2/wallets/${address}/balances`, {
   method: 'GET',
   headers: { 'Accept': 'application/json' }
 })
@@ -52,46 +53,36 @@ fetch(`https://lb.drpc.live/${chain}/${apiToken}/lambda/v1/wallets/${address}/ba
 
 ### Step 3: Understand the Response
 
-You will receive a structured JSON response containing the wallet's token holdings with current USD values, amounts, and contract metadata:
+You will receive a structured JSON response containing the wallet's total net worth, portfolio allocation, and detailed asset metadata (including current USD values and token amounts):
 
 ```json
 {
-  "balances": [
-    {
-      "chain_id": 1,
-      "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-      "symbol": "ETH",
-      "name": "Ethereum",
-      "decimals": 18,
-      "amount": "4.502841",
-      "price_usd": 2295.40,
-      "value_usd": 10335.42,
-      "logo_url": "https://assets.coingecko.com/coins/images/279/small/ethereum.png"
+  "data": {
+    "total_net_worth_usd": 1012548.06,
+    "portfolio_allocation_usd": {
+      "wallet": 1007179.94,
+      "deposit": 5309.19,
+      "borrow": 0.0
     },
-    {
-      "chain_id": 1,
-      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
-      "symbol": "USDC",
-      "name": "USD Coin",
-      "decimals": 6,
-      "amount": "1930.504200",
-      "price_usd": 1.00,
-      "value_usd": 1930.50,
-      "logo_url": "https://assets.coingecko.com/coins/images/6319/small/usdc.png"
-    },
-    {
-      "chain_id": 1,
-      "address": "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9",
-      "symbol": "AAVE",
-      "name": "Aave",
-      "decimals": 18,
-      "amount": "52.180000",
-      "price_usd": 178.25,
-      "value_usd": 9300.09,
-      "logo_url": "https://assets.coingecko.com/coins/images/12645/small/aave.png"
-    }
-  ],
-  "total_value_usd": 21565.01
+    "assets": [
+      {
+        "type": "token",
+        "chain_id": "ethereum",
+        "chain_name": "Ethereum",
+        "value_usd": 9924.69,
+        "value_usd_change_1d": 73.29,
+        "attributes": {
+          "token_symbol": "ETH",
+          "token_name": "Ethereum",
+          "decimals": 18,
+          "amount": 5.690864,
+          "price_usd": 1743.97,
+          "icon_url": "https://static.lambda.p2p.org/tokens/ethereum/eth.png"
+        },
+        "asset_type": "token"
+      }
+    ]
+  }
 }
 ```
 

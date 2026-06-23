@@ -31,75 +31,129 @@ const CODE_SNIPPETS: Array<CodeSnippetObject> = [
     language: "shell",
     code: () => `curl --request POST \\
   --url https://lb.drpc.live/lambda/{key}/v1/protocols/apr/history \\
-  --header 'accept: application/json'`,
+  --header "accept: application/json" \\
+  --header "content-type: application/json" \\
+  --data '{
+    "requests": [
+      {
+        "chain": "ethereum"
+      }
+    ]
+  }'`,
   },
   {
     language: "js",
-    code: () => `fetch("https://lb.drpc.live/lambda/{key}/v1/protocols/apr/history", {
-  method: "POST",
-  headers: {
-    "accept": "application/json"
+    code: () => `const response = await fetch(
+  "https://lb.drpc.live/lambda/{key}/v1/protocols/apr/history",
+  {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      requests: [
+        {
+          chain: "ethereum",
+        },
+      ],
+    }),
   }
-})
-  .then(res => res.json())
-  .then(console.log)
-  .catch(console.error);`,
+);
+
+const data = await response.json();
+console.log(data);`,
   },
   {
     language: "node",
-    code: () => `import fetch from "node-fetch";
+    code: () => `import axios from "axios";
 
-const res = await fetch("https://lb.drpc.live/lambda/{key}/v1/protocols/apr/history", {
-  method: "POST",
-  headers: {
-    "accept": "application/json"
+const response = await axios.post(
+  "https://lb.drpc.live/lambda/{key}/v1/protocols/apr/history",
+  {
+    requests: [
+      {
+        chain: "ethereum",
+      },
+    ],
+  },
+  {
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json",
+    },
   }
-});
+);
 
-const data = await res.json();
-console.log(data);`,
+console.log(response.data);`,
   },
   {
     language: "go",
     code: () => `package main
 
 import (
-  "fmt"
-  "io"
-  "net/http"
-  "strings"
+\t"bytes"
+\t"fmt"
+\t"io"
+\t"net/http"
 )
 
 func main() {
-  req, _ := http.NewRequest("POST", "https://lb.drpc.live/lambda/{key}/v1/protocols/apr/history", strings.NewReader("{}"))
-  req.Header.Set("accept", "application/json")
+\tpayload := []byte(\`{
+\t\t"requests": [
+\t\t\t{
+\t\t\t\t"chain": "ethereum"
+\t\t\t}
+\t\t]
+\t}\`)
 
-  client := &http.Client{}
-  resp, err := client.Do(req)
-  if err != nil {
-    panic(err)
-  }
-  defer resp.Body.Close()
+\treq, err := http.NewRequest(
+\t\t"POST",
+\t\t"https://lb.drpc.live/lambda/{key}/v1/protocols/apr/history",
+\t\tbytes.NewBuffer(payload),
+\t)
+\tif err != nil {
+\t\tpanic(err)
+\t}
 
-  body, _ := io.ReadAll(resp.Body)
-  fmt.Println(string(body))
+\treq.Header.Set("accept", "application/json")
+\treq.Header.Set("content-type", "application/json")
+
+\tclient := &http.Client{}
+\tresp, err := client.Do(req)
+\tif err != nil {
+\t\tpanic(err)
+\t}
+\tdefer resp.Body.Close()
+
+\tbody, _ := io.ReadAll(resp.Body)
+\tfmt.Println(string(body))
 }`,
   },
   {
     language: "rust",
-    code: () => `use reqwest::header::ACCEPT;
+    code: () => `use reqwest::Client;
+use serde_json::json;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let client = reqwest::Client::new();
+    let client = Client::new();
 
-    let res = client
+    let response = client
         .post("https://lb.drpc.live/lambda/{key}/v1/protocols/apr/history")
-        .header(ACCEPT, "application/json")
+        .header("accept", "application/json")
+        .header("content-type", "application/json")
+        .json(&json!({
+            "requests": [
+                {
+                    "chain": "ethereum"
+                }
+            ]
+        }))
         .send()
         .await?;
 
-    let body = res.text().await?;
+    let body = response.text().await?;
     println!("{}", body);
 
     Ok(())
@@ -110,11 +164,22 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     code: () => `import requests
 
 url = "https://lb.drpc.live/lambda/{key}/v1/protocols/apr/history"
-headers = {
-    "accept": "application/json"
+
+payload = {
+    "requests": [
+        {
+            "chain": "ethereum"
+        }
+    ]
 }
 
-response = requests.post(url, headers=headers, json={})
+headers = {
+    "accept": "application/json",
+    "content-type": "application/json"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+
 print(response.json())`,
   },
 ];
