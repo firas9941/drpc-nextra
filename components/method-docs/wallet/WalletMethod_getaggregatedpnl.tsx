@@ -34,11 +34,13 @@ const CODE_SNIPPETS: Array<CodeSnippetObject> = [
   --header 'accept: application/json' \\
   --header 'content-type: application/json' \\
   --data '{
-    "addresses": ["0x..."],
-    "from_timestamp": 1710000000,
-    "to_timestamp": 1711000000,
-    "interval": "day"
-  }'`,
+  "positions": [
+    {
+      "category": "erc20",
+      "position_id": "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
+    }
+  ]
+}'`,
   },
   {
     language: "js",
@@ -49,11 +51,13 @@ const CODE_SNIPPETS: Array<CodeSnippetObject> = [
     "content-type": "application/json"
   },
   body: JSON.stringify({
-    addresses: ["0x..."],
-    from_timestamp: 1710000000,
-    to_timestamp: 1711000000,
-    interval: "day"
-  })
+  "positions": [
+    {
+      "category": "erc20",
+      "position_id": "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
+    }
+  ]
+})
 })
   .then(res => res.json())
   .then(console.log)
@@ -70,11 +74,13 @@ const res = await fetch("https://lb.drpc.live/{chain}/{key}/lambda/v1/aggregated
     "content-type": "application/json"
   },
   body: JSON.stringify({
-    addresses: ["0x..."],
-    from_timestamp: 1710000000,
-    to_timestamp: 1711000000,
-    interval: "day"
-  })
+  "positions": [
+    {
+      "category": "erc20",
+      "position_id": "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
+    }
+  ]
+})
 });
 
 const data = await res.json();
@@ -93,11 +99,13 @@ import (
 
 func main() {
   payload := []byte(\`{
-    "addresses": ["0x..."],
-    "from_timestamp": 1710000000,
-    "to_timestamp": 1711000000,
-    "interval": "day"
-  }\`)
+  "positions": [
+    {
+      "category": "erc20",
+      "position_id": "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
+    }
+  ]
+}\`)
 
   req, _ := http.NewRequest("POST", "https://lb.drpc.live/{chain}/{key}/lambda/v1/aggregated-pnl-history", bytes.NewBuffer(payload))
   req.Header.Set("accept", "application/json")
@@ -128,11 +136,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .header(ACCEPT, "application/json")
         .header(CONTENT_TYPE, "application/json")
         .json(&json!({
-            "addresses": ["0x..."],
-            "from_timestamp": 1710000000,
-            "to_timestamp": 1711000000,
-            "interval": "day"
-        }))
+  "positions": [
+    {
+      "category": "erc20",
+      "position_id": "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
+    }
+  ]
+}))
         .send()
         .await?;
 
@@ -153,10 +163,12 @@ headers = {
 }
 
 payload = {
-    "addresses": ["0x..."],
-    "from_timestamp": 1710000000,
-    "to_timestamp": 1711000000,
-    "interval": "day"
+  "positions": [
+    {
+      "category": "erc20",
+      "position_id": "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
+    }
+  ]
 }
 
 response = requests.post(url, json=payload, headers=headers)
