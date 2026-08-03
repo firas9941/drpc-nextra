@@ -1,0 +1,10 @@
+{
+  "createwitness": "Create Witness",
+  "updatewitness": "Update Witness",
+  "votewitnessaccount": "Vote Witness Account",
+  "listwitnesses": "List Witnesses",
+  "getpaginatednowwitnesslist": "Get Paginated Now Witness List",
+  "getBrokerage": "Get Brokerage",
+  "getReward": "Get Reward",
+  "updateBrokerage": "Update Brokerage"
+}

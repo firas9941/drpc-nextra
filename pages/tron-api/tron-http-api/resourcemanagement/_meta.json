@@ -1,0 +1,21 @@
+{
+  "freezebalance": "Freeze Balance",
+  "freezebalancev2": "Freeze Balance V2",
+  "unfreezebalance": "Unfreeze Balance",
+  "unfreezebalancev2": "Unfreeze Balance V2",
+  "cancelallunfreezev2": "Cancel All Unfreeze V2",
+  "delegateresource": "Delegate Resource",
+  "undelegateresource": "Undelegate Resource",
+  "getdelegatedresource": "Get Delegated Resource",
+  "getdelegatedresourceaccountindex": "Get Delegated Resource Account Index",
+  "getdelegatedresourceaccountindexv2": "Get Delegated Resource Account Index V2",
+  "getdelegatedresourcev2": "Get Delegated Resource V2",
+  "getavailableunfreezecount": "Get Available Unfreeze Count",
+  "getcandelegatedmaxsize": "Get Can Delegate Max Size",
+  "getcanwithdrawunfreezeamount": "Get Can Withdraw Unfreeze Amount",
+  "withdrawexpireunfreeze": "Withdraw Expire Unfreeze",
+  "getbandwidthprices": "Get Bandwidth Prices",
+  "getenergyprices": "Get Energy Prices",
+  "withdrawbalance": "Withdraw Balance",
+  "getburntrx": "Get Burn TRX"
+}

@@ -1,0 +1,9 @@
+{
+  "getnowblock": "Get Now Block",
+  "getblock": "Get Block",
+  "getblockbyid": "Get Block By ID",
+  "getblockbylatestnum": "Get Block By Latest Num",
+  "getblockbylimitnext": "Get Block By Limit Next",
+  "getblockbynum": "Get Block By Num",
+  "getblockbalance": "Get Block Balance"
+}

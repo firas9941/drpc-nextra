@@ -1,0 +1,13 @@
+{
+  "createassetissue": "Create Asset Issue",
+  "getassetissuebyaccount": "Get Asset Issue By Account",
+  "getassetissuebyid": "Get Asset Issue By ID",
+  "getassetissuebyname": "Get Asset Issue By Name",
+  "getassetissuelist": "Get Asset Issue List",
+  "getassetissuelistbyname": "Get Asset Issue List By Name",
+  "getpaginatedassetissuelist": "Get Paginated Asset Issue List",
+  "participateassetissue": "Participate Asset Issue",
+  "transferasset": "Transfer Asset",
+  "unfreezeasset": "Unfreeze Asset",
+  "updateasset": "Update Asset"
+}

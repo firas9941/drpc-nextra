@@ -33,14 +33,14 @@ export function WalletMethod_getsupportedtokens() {
 
 const CODE_SNIPPETS: Array<CodeSnippetObject> = [
   {
-    language: "shell",
-    code: () => `curl --request GET \\
-  --url https://lb.drpc.live/{chain}/{key}/lambda/v1/tokens \\
+  language: "shell",
+  code: () => `curl --request GET \\
+  --url 'https://lb.drpc.live/{chain}/{key}/lambda/v1/tokens?limit=10' \\
   --header 'accept: application/json'`,
-  },
-  {
-    language: "js",
-    code: () => `fetch("https://lb.drpc.live/{chain}/{key}/lambda/v1/tokens", {
+},
+{
+  language: "js",
+  code: () => `fetch("https://lb.drpc.live/{chain}/{key}/lambda/v1/tokens?limit=10", {
   method: "GET",
   headers: {
     "accept": "application/json"
@@ -49,12 +49,12 @@ const CODE_SNIPPETS: Array<CodeSnippetObject> = [
   .then(res => res.json())
   .then(console.log)
   .catch(console.error);`,
-  },
-  {
-    language: "node",
-    code: () => `import fetch from "node-fetch";
+},
+{
+  language: "node",
+  code: () => `import fetch from "node-fetch";
 
-const res = await fetch("https://lb.drpc.live/{chain}/{key}/lambda/v1/tokens", {
+const res = await fetch("https://lb.drpc.live/{chain}/{key}/lambda/v1/tokens?limit=10", {
   method: "GET",
   headers: {
     "accept": "application/json"
@@ -63,35 +63,35 @@ const res = await fetch("https://lb.drpc.live/{chain}/{key}/lambda/v1/tokens", {
 
 const data = await res.json();
 console.log(data);`,
-  },
-  {
-    language: "go",
-    code: () => `package main
+},
+{
+  language: "go",
+  code: () => `package main
 
 import (
-  "fmt"
-  "io"
-  "net/http"
+	"fmt"
+	"io"
+	"net/http"
 )
 
 func main() {
-  req, _ := http.NewRequest("GET", "https://lb.drpc.live/{chain}/{key}/lambda/v1/tokens", nil)
-  req.Header.Set("accept", "application/json")
+	req, _ := http.NewRequest("GET", "https://lb.drpc.live/{chain}/{key}/lambda/v1/tokens?limit=10", nil)
+	req.Header.Set("accept", "application/json")
 
-  client := &http.Client{}
-  resp, err := client.Do(req)
-  if err != nil {
-    panic(err)
-  }
-  defer resp.Body.Close()
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
 
-  body, _ := io.ReadAll(resp.Body)
-  fmt.Println(string(body))
+	body, _ := io.ReadAll(resp.Body)
+	fmt.Println(string(body))
 }`,
-  },
-  {
-    language: "rust",
-    code: () => `use reqwest::header::ACCEPT;
+},
+{
+  language: "rust",
+  code: () => `use reqwest::header::ACCEPT;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -99,6 +99,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let res = client
         .get("https://lb.drpc.live/{chain}/{key}/lambda/v1/tokens")
+        .query(&[("limit", "10")])
         .header(ACCEPT, "application/json")
         .send()
         .await?;
@@ -108,19 +109,22 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }`,
-  },
-  {
-    language: "python",
-    code: () => `import requests
+},
+{
+  language: "python",
+  code: () => `import requests
 
 url = "https://lb.drpc.live/{chain}/{key}/lambda/v1/tokens"
 headers = {
     "accept": "application/json"
 }
+params = {
+    "limit": 10
+}
 
-response = requests.get(url, headers=headers)
+response = requests.get(url, headers=headers, params=params)
 print(response.json())`,
-  },
+},
 ];
 
 const RESPONSE_JSON = `{

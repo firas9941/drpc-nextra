@@ -425,7 +425,6 @@ const USE_CASES = [
 ];
 
 const CONSTRAINTS = [
-  "A maximuim of 5,000 parameters in a single request",
-  "A maximum of 10,000 results can be returned by a single query",
-  "Query duration must not exceed 10 seconds",
+  "Specifying an address or topics filter can help reduce the amount of data scanned",
+  "Queries covering large block ranges or matching a high volume of logs may return an error or timeout",
 ];

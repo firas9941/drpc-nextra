@@ -31,12 +31,12 @@ const CODE_SNIPPETS: Array<CodeSnippetObject> = [
   {
   language: "shell",
   code: () => `curl --request GET \\
-  --url https://lb.drpc.live/lambda/{key}/v1/chains \\
+  --url https://lb.drpc.live/lambda/{key}/v1/chains?limit=10 \\
   --header 'accept: application/json'`,
 },
 {
   language: "js",
-  code: () => `fetch("https://lb.drpc.live/lambda/{key}/v1/chains", {
+  code: () => `fetch("https://lb.drpc.live/lambda/{key}/v1/chains?limit=10", {
   method: "GET",
   headers: {
     "accept": "application/json"
@@ -50,7 +50,7 @@ const CODE_SNIPPETS: Array<CodeSnippetObject> = [
   language: "node",
   code: () => `import fetch from "node-fetch";
 
-const res = await fetch("https://lb.drpc.live/lambda/{key}/v1/chains", {
+const res = await fetch("https://lb.drpc.live/lambda/{key}/v1/chains?limit=10", {
   method: "GET",
   headers: {
     "accept": "application/json"
@@ -65,36 +65,36 @@ console.log(data);`,
   code: () => `package main
 
 import (
-  "fmt"
-  "io"
-  "net/http"
+	"fmt"
+	"io"
+	"net/http"
 )
 
 func main() {
-  req, _ := http.NewRequest("GET", "https://lb.drpc.live/lambda/{key}/v1/chains", nil)
-  req.Header.Set("accept", "application/json")
+	req, _ := http.NewRequest("GET", "https://lb.drpc.live/lambda/{key}/v1/chains?limit=10", nil)
+	req.Header.Set("accept", "application/json")
 
-  client := &http.Client{}
-  resp, err := client.Do(req)
-  if err != nil {
-    panic(err)
-  }
-  defer resp.Body.Close()
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
 
-  body, _ := io.ReadAll(resp.Body)
-  fmt.Println(string(body))
+	body, _ := io.ReadAll(resp.Body)
+	fmt.Println(string(body))
 }`,
 },
-  {
-    language: "rust",
-    code: () => `use reqwest::header::ACCEPT;
+{
+  language: "rust",
+  code: () => `use reqwest::header::ACCEPT;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
 
     let res = client
-        .get("https://lb.drpc.live/lambda/{key}/v1/chains")
+        .get("https://lb.drpc.live/lambda/{key}/v1/chains?limit=10")
         .header(ACCEPT, "application/json")
         .send()
         .await?;
@@ -104,19 +104,19 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }`,
-  },
+},
 {
   language: "python",
   code: () => `import requests
 
-url = "https://lb.drpc.live/lambda/{key}/v1/chains"
+url = "https://lb.drpc.live/lambda/{key}/v1/chains?limit=10"
 headers = {
     "accept": "application/json"
 }
 
 response = requests.get(url, headers=headers)
 print(response.json())`,
-}
+},
 ];
 
 const RESPONSE_JSON = `{

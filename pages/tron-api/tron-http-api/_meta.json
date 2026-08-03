@@ -1,0 +1,11 @@
+{
+  "accountinfo": "Account info",
+  "blocksinfo": "Blocks info",
+  "transactionsinfo": "Transactions info",
+  "smartcontracts": "Smart contracts",
+  "assetissue": "Asset issue (TRC10)",
+  "resourcemanagement": "Resource management",
+  "witnessesandvoting": "Witnesses and voting",
+  "networkandgovernance": "Network and governance",
+  "nodeinfo": "Node info"
+}

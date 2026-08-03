@@ -28,83 +28,107 @@ export function WalletMethod_searchhistoricalprices() {
 
 const CODE_SNIPPETS: Array<CodeSnippetObject> = [
   {
-    language: "shell",
-    code: () => `curl --request POST \\
+  language: "shell",
+  code: () => `curl --request POST \\
   --url https://lb.drpc.live/lambda/{key}/v1/tokens/prices/search \\
   --header 'accept: application/json' \\
-  --header 'Content-Type: application/json' \\
-  --data '{}'`,
-  },
-  {
-    language: "js",
-    code: () => `fetch("https://lb.drpc.live/lambda/{key}/v1/tokens/prices/search", {
+  --header 'content-type: application/json' \\
+  --data '{
+  "symbols": [
+    "BTC"
+  ],
+  "timestamps": [
+    1733760215000
+  ]
+}'`,
+},
+{
+  language: "js",
+  code: () => `fetch("https://lb.drpc.live/lambda/{key}/v1/tokens/prices/search", {
   method: "POST",
   headers: {
     "accept": "application/json",
-    "Content-Type": "application/json"
+    "content-type": "application/json"
   },
-  body: JSON.stringify({})
+  body: JSON.stringify({
+    symbols: ["BTC"],
+    timestamps: [1733760215000]
+  })
 })
   .then(res => res.json())
   .then(console.log)
   .catch(console.error);`,
-  },
-  {
-    language: "node",
-    code: () => `import fetch from "node-fetch";
+},
+{
+  language: "node",
+  code: () => `import fetch from "node-fetch";
 
 const res = await fetch("https://lb.drpc.live/lambda/{key}/v1/tokens/prices/search", {
   method: "POST",
   headers: {
     "accept": "application/json",
-    "Content-Type": "application/json"
+    "content-type": "application/json"
   },
-  body: JSON.stringify({})
+  body: JSON.stringify({
+    symbols: ["BTC"],
+    timestamps: [1733760215000]
+  })
 });
 
 const data = await res.json();
 console.log(data);`,
-  },
-  {
-    language: "go",
-    code: () => `package main
+},
+{
+  language: "go",
+  code: () => `package main
 
 import (
-  "fmt"
-  "io"
-  "net/http"
-  "strings"
+	"bytes"
+	"fmt"
+	"io"
+	"net/http"
 )
 
 func main() {
-  req, _ := http.NewRequest("POST", "https://lb.drpc.live/lambda/{key}/v1/tokens/prices/search", strings.NewReader("{}"))
-  req.Header.Set("accept", "application/json")
-  req.Header.Set("Content-Type", "application/json")
+	payload := []byte(\`{
+  "symbols": ["BTC"],
+  "timestamps": [1733760215000]
+}\`)
 
-  client := &http.Client{}
-  resp, err := client.Do(req)
-  if err != nil {
-    panic(err)
-  }
-  defer resp.Body.Close()
+	req, _ := http.NewRequest("POST", "https://lb.drpc.live/lambda/{key}/v1/tokens/prices/search", bytes.NewBuffer(payload))
+	req.Header.Set("accept", "application/json")
+	req.Header.Set("content-type", "application/json")
 
-  body, _ := io.ReadAll(resp.Body)
-  fmt.Println(string(body))
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	body, _ := io.ReadAll(resp.Body)
+	fmt.Println(string(body))
 }`,
-  },
-  {
-    language: "rust",
-    code: () => `use reqwest::header::{ACCEPT, CONTENT_TYPE};
+},
+{
+  language: "rust",
+  code: () => `use reqwest::header::{ACCEPT, CONTENT_TYPE};
+use serde_json::json;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
 
+    let payload = json!({
+        "symbols": ["BTC"],
+        "timestamps": [1733760215000]
+    });
+
     let res = client
         .post("https://lb.drpc.live/lambda/{key}/v1/tokens/prices/search")
         .header(ACCEPT, "application/json")
         .header(CONTENT_TYPE, "application/json")
-        .body("{}")
+        .json(&payload)
         .send()
         .await?;
 
@@ -113,21 +137,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }`,
-  },
-  {
-    language: "python",
-    code: () => `import requests
-import json
+},
+{
+  language: "python",
+  code: () => `import requests
 
 url = "https://lb.drpc.live/lambda/{key}/v1/tokens/prices/search"
 headers = {
     "accept": "application/json",
-    "Content-Type": "application/json"
+    "content-type": "application/json"
+}
+payload = {
+    "symbols": ["BTC"],
+    "timestamps": [1733760215000]
 }
 
-response = requests.post(url, headers=headers, data=json.dumps({}))
+response = requests.post(url, headers=headers, json=payload)
 print(response.json())`,
-  },
+},
 ];
 
 const RESPONSE_JSON = `{

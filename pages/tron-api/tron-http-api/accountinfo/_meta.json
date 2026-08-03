@@ -1,0 +1,12 @@
+{
+  "getaccount": "Get Account",
+  "getaccountnet": "Get Account Net",
+  "getaccountresource": "Get Account Resource",
+  "getaccountbalance": "Get Account Balance",
+  "createaccount": "Create Account",
+  "updateaccount": "Update Account",
+  "accountpermissionupdate": "Account Permission Update",
+  "validateaddress": "Validate Address",
+  "getapprovedlist": "Get Approved List",
+  "getsignweight": "Get Sign Weight"
+}
