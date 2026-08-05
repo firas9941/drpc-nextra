@@ -233,11 +233,7 @@ const TRON_REDIRECTS_BY_SECTION = {
   web3: ["web3_clientVersion", "web3_sha3"],
 };
 
-function addRedirectsIntoSections(
-  redirectsBySection,
-  fromBasePath,
-  toBasePath = fromBasePath
-) {
+function addRedirectsIntoSections(redirectsBySection, fromBasePath, toBasePath = fromBasePath) {
   for (const section in redirectsBySection) {
     for (const method of redirectsBySection[section]) {
       PERMANENT_REDIRECTS.push({
@@ -247,25 +243,31 @@ function addRedirectsIntoSections(
     }
   }
 }
+function addRedirectsForRelocatedSections(
+  redirectsBySection,
+  basePath,
+  newSegment
+) {
+  const relocatedBasePath = `${basePath}/${newSegment}`;
+
+  for (const section in redirectsBySection) {
+    for (const method of redirectsBySection[section]) {
+      PERMANENT_REDIRECTS.push({
+        from: `${basePath}/${section}/${method}`,
+        to: `${relocatedBasePath}/${section}/${method}`,
+      });
+    }
+  }
+}
 
 addRedirectsIntoSections(ETHEREUM_REDIRECTS_BY_SECTION, "/ethereum-api");
 addRedirectsIntoSections(OPTIMISM_REDIRECTS_BY_SECTION, "/optimism-api");
 addRedirectsIntoSections(SOLANA_REDIRECTS_BY_SECTION, "/solana-api");
-addRedirectsIntoSections(
+addRedirectsForRelocatedSections(
   TRON_REDIRECTS_BY_SECTION,
   "/tron-api",
-  "/tron-api/tron-json-rpc-api"
+  "tron-json-rpc-api"
 );
-
-// Catch-all: any other /tron-api page that simply moved one level deeper
-// into /tron-api/tron-json-rpc-api without changing its remaining path.
-// Kept after the specific method redirects above for readability; Next.js
-// prioritizes non-dynamic (exact) matches over wildcard ones regardless
-// of array order.
-PERMANENT_REDIRECTS.push({
-  from: "/tron-api/:slug*",
-  to: "/tron-api/tron-json-rpc-api/:slug*",
-});
 
 /**
  * @type {import('next').NextConfig}
