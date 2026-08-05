@@ -10,6 +10,7 @@ export function WalletMethod_getpnlformultiplewallets() {
     <WalletMethod
       method="Get PnL for Multiple Wallets"
       cu={334000}
+      culambda={"334000 CU per address, 5 addresses = 334000x5 CU"}
       description={"The Wallet PnL (Profit and Loss) data is provided for entire wallets, aggregating all positions and tokens within each specified wallet address"}
       url={"POST https://lb.drpc.live/{chain}/{key}/lambda/v1/wallet-pnl-history"}
       useCases={USE_CASES}
@@ -28,83 +29,96 @@ export function WalletMethod_getpnlformultiplewallets() {
 
 const CODE_SNIPPETS: Array<CodeSnippetObject> = [
   {
-    language: "shell",
-    code: () => `curl --request POST \\
+  language: "shell",
+  code: () => `curl --request POST \\
   --url https://lb.drpc.live/{chain}/{key}/lambda/v1/wallet-pnl-history \\
   --header 'accept: application/json' \\
-  --header 'Content-Type: application/json' \\
-  --data '{}'`,
-  },
-  {
-    language: "js",
-    code: () => `fetch("https://lb.drpc.live/{chain}/{key}/lambda/v1/wallet-pnl-history", {
+  --header 'content-type: application/json' \\
+  --data '{
+  "addresses": []
+}'`,
+},
+{
+  language: "js",
+  code: () => `fetch("https://lb.drpc.live/{chain}/{key}/lambda/v1/wallet-pnl-history", {
   method: "POST",
   headers: {
     "accept": "application/json",
-    "Content-Type": "application/json"
+    "content-type": "application/json"
   },
-  body: JSON.stringify({})
+  body: JSON.stringify({
+    addresses: []
+  })
 })
   .then(res => res.json())
   .then(console.log)
   .catch(console.error);`,
-  },
-  {
-    language: "node",
-    code: () => `import fetch from "node-fetch";
+},
+{
+  language: "node",
+  code: () => `import fetch from "node-fetch";
 
 const res = await fetch("https://lb.drpc.live/{chain}/{key}/lambda/v1/wallet-pnl-history", {
   method: "POST",
   headers: {
     "accept": "application/json",
-    "Content-Type": "application/json"
+    "content-type": "application/json"
   },
-  body: JSON.stringify({})
+  body: JSON.stringify({
+    addresses: []
+  })
 });
 
 const data = await res.json();
 console.log(data);`,
-  },
-  {
-    language: "go",
-    code: () => `package main
+},
+{
+  language: "go",
+  code: () => `package main
 
 import (
-  "fmt"
-  "io"
-  "net/http"
-  "strings"
+	"bytes"
+	"fmt"
+	"io"
+	"net/http"
 )
 
 func main() {
-  req, _ := http.NewRequest("POST", "https://lb.drpc.live/{chain}/{key}/lambda/v1/wallet-pnl-history", strings.NewReader("{}"))
-  req.Header.Set("accept", "application/json")
-  req.Header.Set("Content-Type", "application/json")
+	payload := []byte(\`{"addresses":[]}\`)
 
-  client := &http.Client{}
-  resp, err := client.Do(req)
-  if err != nil {
-    panic(err)
-  }
-  defer resp.Body.Close()
+	req, _ := http.NewRequest("POST", "https://lb.drpc.live/{chain}/{key}/lambda/v1/wallet-pnl-history", bytes.NewBuffer(payload))
+	req.Header.Set("accept", "application/json")
+	req.Header.Set("content-type", "application/json")
 
-  body, _ := io.ReadAll(resp.Body)
-  fmt.Println(string(body))
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	body, _ := io.ReadAll(resp.Body)
+	fmt.Println(string(body))
 }`,
-  },
-  {
-    language: "rust",
-    code: () => `use reqwest::header::{ACCEPT, CONTENT_TYPE};
+},
+{
+  language: "rust",
+  code: () => `use reqwest::header::{ACCEPT, CONTENT_TYPE};
+use serde_json::json;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
 
+    let payload = json!({
+        "addresses": []
+    });
+
     let res = client
         .post("https://lb.drpc.live/{chain}/{key}/lambda/v1/wallet-pnl-history")
         .header(ACCEPT, "application/json")
         .header(CONTENT_TYPE, "application/json")
-        .body("{}")
+        .json(&payload)
         .send()
         .await?;
 
@@ -113,21 +127,23 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }`,
-  },
-  {
-    language: "python",
-    code: () => `import requests
-import json
+},
+{
+  language: "python",
+  code: () => `import requests
 
 url = "https://lb.drpc.live/{chain}/{key}/lambda/v1/wallet-pnl-history"
 headers = {
     "accept": "application/json",
-    "Content-Type": "application/json"
+    "content-type": "application/json"
+}
+payload = {
+    "addresses": []
 }
 
-response = requests.post(url, headers=headers, data=json.dumps({}))
+response = requests.post(url, headers=headers, json=payload)
 print(response.json())`,
-  },
+},
 ];
 
 const RESPONSE_JSON = `{

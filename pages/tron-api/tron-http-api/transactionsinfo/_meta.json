@@ -1,0 +1,11 @@
+{
+  "gettransactionbyid": "Get Transaction By ID",
+  "gettransactioncountbyblocknum": "Get Transaction Count By Block Num",
+  "gettransactionfrompending": "Get Transaction From Pending",
+  "gettransactioninfobyblocknum": "Get Transaction Info By Block Num",
+  "gettransactioninfobyid": "Get Transaction Info By ID",
+  "gettransactionlistfrompending": "Get Transaction List From Pending",
+  "createtransaction": "Create Transaction",
+  "broadcasttransaction": "Broadcast Transaction",
+  "broadcasthex": "Broadcast Hex"
+}

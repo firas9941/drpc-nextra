@@ -1,0 +1,11 @@
+{
+  "deploycontract": "Deploy Contract",
+  "triggersmartcontract": "Trigger Smart Contract",
+  "triggerconstantcontract": "Trigger Constant Contract",
+  "getcontract": "Get Contract",
+  "getcontractinfo": "Get Contract Info",
+  "clearabi": "Clear ABI",
+  "estimateenergy": "Estimate Energy",
+  "updatesetting": "Update Setting",
+  "updateenergylimit": "Update Energy Limit"
+}

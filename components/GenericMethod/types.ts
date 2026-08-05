@@ -17,6 +17,8 @@ export type TParamType =
   | "networth_period"
   | "nft_info"
   | "nullable"
+  | "map[string]int64"
+  | "enum"
   | "uint64";
 
 export type CodeSnippetObject = {

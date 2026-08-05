@@ -1,0 +1,10 @@
+{
+  "proposalapprove": "Proposal Approve",
+  "proposalcreate": "Proposal Create",
+  "proposaldelete": "Proposal Delete",
+  "listproposals": "List Proposals",
+  "getpaginatedproposallist": "Get Paginated Proposal List",
+  "getproposalbyid": "Get Proposal By ID",
+  "getchainparameters": "Get Chain Parameters",
+  "getnextmaintenancetime": "Get Next Maintenance Time"
+}
