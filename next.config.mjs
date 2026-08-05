@@ -165,12 +165,84 @@ const SOLANA_REDIRECTS_BY_SECTION = {
   ],
 };
 
-function addRedirectsIntoSections(redirectsBySection, basePath) {
+const TRON_REDIRECTS_BY_SECTION = {
+  accountinfo: [
+    "eth_accounts",
+    "eth_getBalance",
+    "eth_getCode",
+    "eth_getProof",
+    "eth_getStorageAt",
+  ],
+  blocksinfo: [
+    "eth_blockNumber",
+    "eth_getBlockByHash",
+    "eth_getBlockByHashfull",
+    "eth_getBlockByNumber",
+    "eth_getBlockByNumberfull",
+    "eth_newBlockFilter",
+    "eth_getBlockReceipts",
+    "eth_getBlockTransactionCountByHash",
+    "eth_getBlockTransactionCountByNumber",
+  ],
+  chaininfo: [
+    "eth_chainId",
+    "eth_protocolVersion",
+    "net_listening",
+    "net_version",
+    "net_peerCount",
+    "eth_syncing",
+    "eth_hashrate",
+  ],
+  debugandtrace: [
+    "trace_filter",
+    "trace_rawTransaction",
+    "trace_block",
+    "trace_replayBlockTransactions",
+    "debug_traceBlockByHash",
+  ],
+  eventlogs: [
+    "eth_getLogs",
+    "eth_newFilter",
+    "eth_getFilterChanges",
+    "eth_uninstallFilter",
+    "eth_getFilterLogs",
+  ],
+  executingtransactions: ["eth_call", "eth_sendRawTransaction"],
+  gasestimation: [
+    "eth_feeHistory",
+    "eth_estimateGas",
+    "eth_gasPrice",
+    "eth_createAccessList",
+    "eth_maxPriorityFeePerGas",
+  ],
+  gettinguncles: [
+    "eth_getUncleByBlockHashAndIndex",
+    "eth_getUncleByBlockNumberAndIndex",
+    "eth_getUncleCountByBlockHash",
+    "eth_getUncleCountByBlockNumber",
+  ],
+  mining: ["eth_coinbase", "eth_mining"],
+  transactionsinfo: [
+    "eth_getTransactionByHash",
+    "eth_getTransactionCount",
+    "eth_getTransactionReceipt",
+    "eth_newPendingTransactionFilter",
+    "eth_getTransactionByBlockHashAndIndex",
+    "eth_getTransactionByBlockNumberAndIndex",
+  ],
+  web3: ["web3_clientVersion", "web3_sha3"],
+};
+
+function addRedirectsIntoSections(
+  redirectsBySection,
+  fromBasePath,
+  toBasePath = fromBasePath
+) {
   for (const section in redirectsBySection) {
     for (const method of redirectsBySection[section]) {
       PERMANENT_REDIRECTS.push({
-        from: `${basePath}/${method}`,
-        to: `${basePath}/${section}/${method}`,
+        from: `${fromBasePath}/${method}`,
+        to: `${toBasePath}/${section}/${method}`,
       });
     }
   }
@@ -179,6 +251,21 @@ function addRedirectsIntoSections(redirectsBySection, basePath) {
 addRedirectsIntoSections(ETHEREUM_REDIRECTS_BY_SECTION, "/ethereum-api");
 addRedirectsIntoSections(OPTIMISM_REDIRECTS_BY_SECTION, "/optimism-api");
 addRedirectsIntoSections(SOLANA_REDIRECTS_BY_SECTION, "/solana-api");
+addRedirectsIntoSections(
+  TRON_REDIRECTS_BY_SECTION,
+  "/tron-api",
+  "/tron-api/tron-json-rpc-api"
+);
+
+// Catch-all: any other /tron-api page that simply moved one level deeper
+// into /tron-api/tron-json-rpc-api without changing its remaining path.
+// Kept after the specific method redirects above for readability; Next.js
+// prioritizes non-dynamic (exact) matches over wildcard ones regardless
+// of array order.
+PERMANENT_REDIRECTS.push({
+  from: "/tron-api/:slug*",
+  to: "/tron-api/tron-json-rpc-api/:slug*",
+});
 
 /**
  * @type {import('next').NextConfig}

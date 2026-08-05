@@ -4,6 +4,5 @@
   "eth_getTransactionReceipt": "eth_getTransactionReceipt",
   "eth_newPendingTransactionFilter": "eth_newPendingTransactionFilter",
   "eth_getTransactionByBlockHashAndIndex": "eth_getTransactionByBlockHashAndIndex",
-  "eth_getTransactionByBlockNumberAndIndex": "eth_getTransactionByBlockNumberAndIndex",
-  "txpool_content": "txpool_content"
+  "eth_getTransactionByBlockNumberAndIndex": "eth_getTransactionByBlockNumberAndIndex"
 }
