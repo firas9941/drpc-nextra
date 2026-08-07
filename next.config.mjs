@@ -59,6 +59,18 @@ const PERMANENT_REDIRECTS = [
     from: "/howitworks/subscriptions/solana",
     to: "/pricing/subscriptions/solana",
   },
+  {
+    from: "/wallet-api/portfolio/gettransactionshistory",
+    to: "/data-api/transactions-api/gettransactionshistory",
+  },
+  {
+    from: "/overview-wallet-api",
+    to: "/overview-data-api",
+  },
+  {
+    from: "/quickstart-wallet-api",
+    to: "/quickstart-data-api",
+  },
 ];
 
 const ETHEREUM_REDIRECTS_BY_SECTION = {
@@ -233,6 +245,40 @@ const TRON_REDIRECTS_BY_SECTION = {
   web3: ["web3_clientVersion", "web3_sha3"],
 };
 
+const WALLET_API_METHODS_BY_SECTION = {
+  chain: ["getsupportedchains", "getsupportedchainbyid"],
+  portfolio: [
+    "getevmportfolio",
+    "getnonevmportfolio",
+    "gethistoricalnetworth",
+    "getpnlhistory",
+    "getaggregatedpnl",
+    "getpnlformultiplewallets",
+    "getyieldrecommendations",
+  ],
+  token: [
+    "getsupportedtokens",
+    "gettokeninfobyid",
+    "getsupportedpricesymbols",
+    "searchhistoricalprices",
+  ],
+  nft: [
+    "getwalletnfts",
+    "getnftcollections",
+    "getnftmetadatabyid",
+    "refreshnftmetadata",
+  ],
+  protocols: ["getaprhistory"],
+};
+
+const WALLET_API_SECTION_RENAME = {
+  chain: "blockchain-api",
+  portfolio: "portfolio-api",
+  token: "token-api",
+  nft: "nft-api",
+  protocols: "protocols-api",
+};
+
 function addRedirectsIntoSections(redirectsBySection, fromBasePath, toBasePath = fromBasePath) {
   for (const section in redirectsBySection) {
     for (const method of redirectsBySection[section]) {
@@ -260,6 +306,18 @@ function addRedirectsForRelocatedSections(
   }
 }
 
+function addWalletApiRedirects() {
+  for (const oldSection in WALLET_API_METHODS_BY_SECTION) {
+    const newSection = WALLET_API_SECTION_RENAME[oldSection];
+    for (const method of WALLET_API_METHODS_BY_SECTION[oldSection]) {
+      PERMANENT_REDIRECTS.push({
+        from: `/wallet-api/${oldSection}/${method}`,
+        to: `/data-api/${newSection}/${method}`,
+      });
+    }
+  }
+}
+
 addRedirectsIntoSections(ETHEREUM_REDIRECTS_BY_SECTION, "/ethereum-api");
 addRedirectsIntoSections(OPTIMISM_REDIRECTS_BY_SECTION, "/optimism-api");
 addRedirectsIntoSections(SOLANA_REDIRECTS_BY_SECTION, "/solana-api");
@@ -268,6 +326,8 @@ addRedirectsForRelocatedSections(
   "/tron-api",
   "tron-json-rpc-api"
 );
+
+addWalletApiRedirects();
 
 /**
  * @type {import('next').NextConfig}

@@ -31,9 +31,9 @@
     "type": "separator",
     "title": "Data & Wallet API"
   },
-  "overview-wallet-api": "Overview",
-  "quickstart-wallet-api": "Quickstart",
-  "wallet-api": "Wallet API",
+  "overview-data-api": "Overview",
+  "quickstart-data-api": "Quickstart",
+  "data-api": "Data API",
 
   "-- Core RPC API": {
     "type": "separator",
