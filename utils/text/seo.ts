@@ -20,7 +20,7 @@ const METHOD_DOCS_URL_BASES_MAP = {
   "/viction-api": "Viction",
   "/superseed-api": "Superseed",
   "/tron-api": "Tron",
-  "/wallet-api": "Wallet API",
+  "/data-api": "Data API",
 };
 
 const METHOD_DOCS_URL_BASES_MAP_KEYS = Object.keys(METHOD_DOCS_URL_BASES_MAP);
@@ -63,11 +63,12 @@ const METHOD_DOCS_URL_CHAPTERS = [
   "ethereumbscdifference",
   "ethereumbartiodifference",
   "ethereumsuperseeddifference",
-  "chain",
-  "wallet",
-  "token",
-  "nft",
-  "protocols"
+  "blockchain-api",
+  "portfolio-api",
+  "token-api",
+  "nft-api",
+  "protocols-api",
+  "transaction-api"
 ];
 
 type RouteCheckResult = {
