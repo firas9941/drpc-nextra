@@ -140,5 +140,18 @@
     "theme": {
       "breadcrumb": false
     }
+  },
+  "robinhood-api": {
+    "title": "Robinhood API",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "arc-api": {
+    "title": "Arc API",
+    "theme": {
+      "breadcrumb": false
+    }
   }
+
 }
