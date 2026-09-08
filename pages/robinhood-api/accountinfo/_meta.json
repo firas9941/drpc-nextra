@@ -1,0 +1,8 @@
+{
+  "eth_getBalance": "eth_getBalance",
+  "eth_accounts": "eth_accounts",
+  "eth_getCode": "eth_getCode",
+  "eth_getProof": "eth_getProof",
+  "eth_getStorageAt": "eth_getStorageAt",
+  "eth_getStorageValues": "eth_getStorageValues"
+}

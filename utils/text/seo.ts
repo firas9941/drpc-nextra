@@ -21,6 +21,8 @@ const METHOD_DOCS_URL_BASES_MAP = {
   "/superseed-api": "Superseed",
   "/tron-api": "Tron",
   "/data-api": "Data API",
+  "/robinhood-api": "Robinhood",
+  "/arc-api": "Arc",
 };
 
 const METHOD_DOCS_URL_BASES_MAP_KEYS = Object.keys(METHOD_DOCS_URL_BASES_MAP);
@@ -68,7 +70,8 @@ const METHOD_DOCS_URL_CHAPTERS = [
   "token-api",
   "nft-api",
   "protocols-api",
-  "transaction-api"
+  "transaction-api",
+  "arcnamespace",
 ];
 
 type RouteCheckResult = {
