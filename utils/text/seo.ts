@@ -79,8 +79,15 @@ type RouteCheckResult = {
   blockchain: string | undefined;
 };
 
+// router.asPath may include a hash and/or a query string ('/data-api#data-api-methods'),
+// while all checks below compare against bare pathnames
+function stripHashAndQuery(value: string): string {
+  return value.split(/[#?]/)[0];
+}
+
 // Starts with '/ethereum-api', '/optimism-api', etc.
-function isDocsPage(value: string): RouteCheckResult {
+function isDocsPage(path: string): RouteCheckResult {
+  const value = stripHashAndQuery(path);
   const base = METHOD_DOCS_URL_BASES_MAP_KEYS.find((base) =>
     value.startsWith(base)
   );
@@ -91,7 +98,8 @@ function isDocsPage(value: string): RouteCheckResult {
 }
 
 // Equals to '/ethereum-api', '/optimism-api', etc.
-export function isDocsInfoPage(value: string): RouteCheckResult {
+export function isDocsInfoPage(path: string): RouteCheckResult {
+  const value = stripHashAndQuery(path);
   const base = METHOD_DOCS_URL_BASES_MAP_KEYS.find(
     (base) => value === base || value === `${base}/`
   );
@@ -102,7 +110,8 @@ export function isDocsInfoPage(value: string): RouteCheckResult {
 }
 
 // Equals to '/ethereum-api/blocksinfo', etc.
-function isDocsChapterPage(value: string): RouteCheckResult {
+function isDocsChapterPage(path: string): RouteCheckResult {
+  const value = stripHashAndQuery(path);
   const base = METHOD_DOCS_URL_BASES_MAP_KEYS.find((base) =>
     METHOD_DOCS_URL_CHAPTERS.some((chapter) => value === `${base}/${chapter}`)
   );
@@ -114,7 +123,8 @@ function isDocsChapterPage(value: string): RouteCheckResult {
 }
 
 // Starts with '/ethereum-api/blocksinfo', etc. but not equals to '/ethereum-api/blocksinfo'
-export function isDocsMethodPage(value: string): RouteCheckResult {
+export function isDocsMethodPage(path: string): RouteCheckResult {
+  const value = stripHashAndQuery(path);
   const base = METHOD_DOCS_URL_BASES_MAP_KEYS.find((base) =>
     METHOD_DOCS_URL_CHAPTERS.some(
       (chapter) =>
